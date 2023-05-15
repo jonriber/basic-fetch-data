@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import UserProfile from './components/UserProfile'
 
 function App() {
-  const [data, setData] = useState({})
+  const [data, setData] = useState([]) //data is expected to be an array
 
   function fetchData(){
     fetch("https://randomuser.me/api/?results=1")
       .then(response => response.json())
-      .then(data => setData(data)) //this is trigger re-render!!!
+      .then(data => setData(data.results)) //this is trigger re-render!!!
       .catch(err => console.log(err))
   }
 
@@ -16,20 +17,24 @@ function App() {
   },[])
 
   console.log("Data:",data);
-  
+
   return (
     <>
      
       <h1>Fetch data with React</h1>
       <div className="card">
+       {data.length>0 ?
+        <UserProfile data={data[0]}/>
+      :
+        <h3>Loading content</h3>
+      }
        
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Check the code ate github repo:<a href='https://github.com/jonriber/basic-fetch-data'>HERE</a>
       </p>
+
+      <footer><b>Jonatas Ribeiro</b>.2023#</footer>
     </>
   )
 }
