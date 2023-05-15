@@ -16,6 +16,10 @@ function App() {
     fetchData()
   },[])
 
+  useEffect(() =>{
+    if(data.length) document.title = data[0]["name"]["first"]
+  },[data])
+
   console.log("Data:",data);
 
   return (
